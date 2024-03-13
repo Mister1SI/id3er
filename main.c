@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <sys/io.h>
+#include <mman.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 void help();
 
@@ -25,6 +29,22 @@ int main(int argc, char** argv) {
 			return 1;
 	}
 	
+	// Open and map the file
+	int fd = open(filename, O_RDWR);
+	if(fd == -1) {
+		puts("Failed to open file");
+		return 2;
+	}
+	struct stat st;
+	fstat(fd, &st);
+	long filesize = st.st_size;
+	void* filemap = mmap(NULL, filesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+	if(filemap == MAP_FAILED) {
+		puts("Failed mapping");
+		return 3;
+	}
+	close(fd);
+
 	return 0;
 }
 
