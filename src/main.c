@@ -47,8 +47,10 @@ int main(int argc, char** argv) {
 	}
 	close(fd);
 	
-	
+	char* pv1data = filemap + filesize - 128;
+	v1read(pv1data);
 
+	munmap(filemap, filesize);
 	return 0;
 }
 
