@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <sys/io.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 
@@ -56,7 +57,18 @@ int main(int argc, char** argv) {
 
 void help() {
 	puts(
-	"Help menu"
+	"id3er: an id3 reader and editor\n"
+	"usage:\n"
+	"\tid3er\n"
+	"\tid3er	<filename>\n"
+	"\tid3er	<filename>	[t a l y c]\n\n"
+	"1 argument:	List data\n"
+	"2 arguments	Modify a field:\n"
+	"\tt...Title\n"
+	"\ta...Artist\n"
+	"\tl...Album\n"
+	"\ty...Year\n"
+	"\tc...Comment\n"
 	);
 }
 
