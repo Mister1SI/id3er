@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <sys/io.h>
-#include <mman.h>
+#include <sys/mman.h>
 #include <fcntl.h>
 #include <unistd.h>
+
+#include "../h/v1edit.h"
 
 void help();
 
@@ -44,6 +46,8 @@ int main(int argc, char** argv) {
 		return 3;
 	}
 	close(fd);
+	
+	
 
 	return 0;
 }
