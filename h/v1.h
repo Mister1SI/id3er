@@ -2,6 +2,6 @@
 #define V1_H
 
 void v1edit(char* dest, char* src, int n, char* field, int lfield);
-void v1read(char* pstart);
+void v1read(char* pstart, char* filename, int lfilename);
 
 #endif

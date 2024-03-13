@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "../h/v1.h"
 
@@ -49,7 +50,7 @@ int main(int argc, char** argv) {
 	close(fd);
 	
 	char* pv1data = filemap + filesize - 128;
-	v1read(pv1data);
+	v1read(pv1data, filename, strlen(filename));
 
 	munmap(filemap, filesize);
 	return 0;
