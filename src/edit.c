@@ -11,7 +11,7 @@ void rmnl(char* s, int n) {
 	}
 }
 
-void v1edit(char* dest, int n, char* field, int lfield) {
+void id3edit(char* dest, int n, char* field, int lfield) {
 	printf("Enter new ");
 	fflush(stdout);
 	write(1, field, lfield);

@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "../h/v1.h"
+#include "../h/id3.h"
 
 void help();
 
@@ -49,24 +49,24 @@ int main(int argc, char** argv) {
 	}
 	
 	char* pv1data = filemap + (filesize - 128);
-	v1read(pv1data, filename, strlen(filename));
+	id3read(pv1data, filename, strlen(filename));
 
 	if(edit_mode == 1) {
 		switch(field) {
 			case 't':
-				v1edit(pv1data+3, 30, "title", 5);
+				id3edit(pv1data+3, 30, "title", 5);
 				break;
 			case 'a':
-				v1edit(pv1data+33, 30, "artist", 6);
+				id3edit(pv1data+33, 30, "artist", 6);
 				break;
 			case 'l':
-				v1edit(pv1data+63, 30, "album", 5);
+				id3edit(pv1data+63, 30, "album", 5);
 				break;
 			case 'y':
-				v1edit(pv1data+93, 30, "year", 4);
+				id3edit(pv1data+93, 30, "year", 4);
 				break;
 			case 'c':
-				v1edit(pv1data+97, 30, "comment", 7);
+				id3edit(pv1data+97, 30, "comment", 7);
 				break;
 			default:
 				puts("Unknown field.");
