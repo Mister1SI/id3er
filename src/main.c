@@ -49,8 +49,31 @@ int main(int argc, char** argv) {
 	}
 	close(fd);
 	
-	char* pv1data = filemap + filesize - 128;
+	char* pv1data = filemap + (filesize - 128);
 	v1read(pv1data, filename, strlen(filename));
+
+	if(edit_mode) {
+		switch(field) {
+			case 't':
+				v1edit(pv1data+3, 30, "title", 5);
+				break;
+			case 'a':
+				v1edit(pv1data+33, 30, "artist", 6);
+				break;
+			case 'l':
+				v1edit(pv1data+63, 30, "album", 5);
+				break;
+			case 'y':
+				v1edit(pv1data+93, 30, "year", 4);
+				break;
+			case 'c':
+				v1edit(pv1data+97, 30, "comment", 7);
+				break;
+			default:
+				puts("Unknown field.");
+				return 1;
+		}
+	}
 
 	munmap(filemap, filesize);
 	return 0;
@@ -63,8 +86,9 @@ void help() {
 	"\tid3er\n"
 	"\tid3er	<filename>\n"
 	"\tid3er	<filename>	[t a l y c]\n\n"
+	"0 arguments:	Show help\n"
 	"1 argument:	List data\n"
-	"2 arguments	Modify a field:\n"
+	"2 arguments:	Modify a field:\n"
 	"\tt...Title\n"
 	"\ta...Artist\n"
 	"\tl...Album\n"

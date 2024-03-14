@@ -2,16 +2,19 @@
 #include <string.h>
 #include <sys/io.h>
 #include <unistd.h>
-void v1edit(char* dest, char* src, int n, char* field, int lfield) {
+#include <stdlib.h>
+
+void v1edit(char* dest, int n, char* field, int lfield) {
 	printf("Enter new ");
 	fflush(stdout);
 	write(1, field, lfield);
 	printf(": ");
 	fflush(stdout);
 
-	char buf[30];
+	char* buf = malloc(30);
+	memset(buf, 0, 30);
 	read(0, buf, 30);
-	memcpy(dest, src, n);
+	memcpy(dest, buf, n);
 
 }
 
