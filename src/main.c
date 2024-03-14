@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
 	}
 	
 	char* pv1data = filemap + (filesize - 128);
-	id3read(pv1data, filename, strlen(filename));
+	id3read(pv1data, filemap, filename, strlen(filename));
 
 	if(edit_mode == 1) {
 		switch(field) {
