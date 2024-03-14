@@ -42,17 +42,16 @@ int main(int argc, char** argv) {
 	struct stat st;
 	fstat(fd, &st);
 	long filesize = st.st_size;
-	void* filemap = mmap(NULL, filesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+	void* filemap = mmap(NULL, filesize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 	if(filemap == MAP_FAILED) {
 		puts("Failed mapping");
 		return 3;
 	}
-	close(fd);
 	
 	char* pv1data = filemap + (filesize - 128);
 	v1read(pv1data, filename, strlen(filename));
 
-	if(edit_mode) {
+	if(edit_mode == 1) {
 		switch(field) {
 			case 't':
 				v1edit(pv1data+3, 30, "title", 5);
@@ -96,4 +95,6 @@ void help() {
 	"\tc...Comment\n"
 	);
 }
+
+
 
