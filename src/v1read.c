@@ -3,21 +3,25 @@
 #include <string.h>
 #include <stdlib.h>
 
-int v1read(char* pstart, char* filename, int lfilename) {
-	if(0 != strncmp(pstart, "TAG", 3))
-		return 0;
-
-	char* last_line = malloc(52);
+void v1read(char* pstart, char* filename, int lfilename) {
+	char* last_line = malloc(53);
 	*last_line = '\n';
-	*(last_line + 51) = '\n';
+	*(last_line + 52) = '\n';
 	if(lfilename <= 50) {
 		memcpy(last_line + 1, filename, lfilename);
-		for(int i = lfilename + 1; i < 50; i++) {
+		for(int i = lfilename + 1; i < 51; i++) {
 			*(last_line + i) = '-';
 		}
 	} else {
 		memcpy(last_line + 1, filename, 47);
 		memcpy(last_line + 48, "...", 3);
+	}
+	
+	if(0 != strncmp(pstart, "TAG", 3)) {
+		write(1, "ID3v1 Info----------------------------------------\n", 51);
+		write(1, "\tNo ID3v1 tag found.", 20);
+		write(1, last_line, 53);
+		return;
 	}
 
 	write(1, "ID3v1 Info----------------------------------------\n", 51);
@@ -31,9 +35,8 @@ int v1read(char* pstart, char* filename, int lfilename) {
 	write(1, pstart + 93, 4);
 	write(1, "\n\tComment:\t", 11);
 	write(1, pstart + 97, 30);
-	write(1, last_line, 52);
+	write(1, last_line, 53);
 
 	free(last_line);
-	return 1;
 }
 
